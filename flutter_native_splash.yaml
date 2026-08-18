@@ -1,0 +1,73 @@
+flutter_native_splash:
+  android: true
+  ios: true
+  web: true
+
+  #======================================================================
+
+  #! FOR ALL PLATFORM, except Android 12+:
+  color: "#121312"
+  #color_dark: "#042a49"
+  # platform-specific color. will override general color if active:
+  color_android: "#121312"
+  color_ios: "#121312"
+  color_web: "#121312"
+
+
+
+
+  # general image for all platform (except android 12+):
+  # allows you to specify an image used in the splash screen. It must be a
+  # png file and should be sized for 4x pixel density.
+  image: assets/images/logo.png
+
+  image_android: assets/images/logo.png
+  image_ios: assets/images/logo.png
+  image_web: assets/images/logo.png
+
+
+  android_gravity: center
+  ios_content_mode: center
+  web_image_mode: center
+
+  # general branding for all platform (except android 12+):
+  # allows you to specify an image used as branding in the splash screen. should be png.
+  branding: assets/images/branding.png
+
+
+  branding_android: assets/images/branding.png
+  branding_ios: assets/images/branding.png
+  branding_web: assets/images/branding.png
+
+
+  branding_mode: bottom                # default bottom
+  branding_bottom_padding: 24          # default 0
+  branding_bottom_padding_android: 24  # default 0
+  branding_bottom_padding_ios: 24      # default 0
+
+
+  fullscreen: true                # default false
+
+
+  #========================================================================
+
+
+  #! ANDROID 12+ configuration:
+  android_12:
+    # background color
+    color: "#121312"
+
+
+    # center-logo
+    # If this parameter is not specified, the app's launcher icon will be used instead.
+    # Please note that the splash screen will be clipped to a circle on the center of the screen.
+    # with background: 960×960 px (fit within circle 640px in diameter)
+    # without background: 1152×1152 px (fit within circle 768px in diameter)
+    # ensure that the most important design elements of your image are placed within a circular area
+    image: assets/images/splash_Logo.png
+    # image_dark: assets/images/logo/logo-splash2.png
+
+
+    # branding:
+    # The branding image dimensions must be 800x320 px.
+    branding: assets/images/branding_splash.png
