@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
 
-class AppFonts {
+class AppStyles {
+  static TextStyle descriptions1 = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    color: Color(0x60FFFFFF),
+    fontStyle: FontStyle.normal,
+  );
   static TextStyle descriptions = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w400,
@@ -28,5 +34,17 @@ class AppFonts {
     fontSize: 16,
     fontWeight: FontWeight.w400,
     color: AppColors.whiteColor,
+  );
+
+  static TextStyle smallWhiteText = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: AppColors.whiteColor,
+  );
+
+  static TextStyle smallYellowText = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: AppColors.yellowColor,
   );
 }

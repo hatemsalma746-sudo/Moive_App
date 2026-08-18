@@ -1,6 +1,6 @@
 class AppImages {
   static const String moive1917 = 'assets/images/1917_moive.png';
-  static const String moviesPosters1 = 'assets/images/Movies Posters Group.png';
+  static const String moviesPosters1 = 'assets/images/movies_Posters_Group.png';
   static const String badBoys = 'assets/images/xl_bad-Boys.png';
   static const String marvelPoster = 'assets/images/marvel_Poster.png';
   static const String godFather1 = 'assets/images/the_Godfather1.png';
@@ -50,4 +50,5 @@ class AppImages {
   static const String searchIcon = 'assets/icons/search_Icon.png';
   static const String starIcon = 'assets/icons/star_Icon.png';
   static const String watchListIcon = 'assets/icons/watch_ListIcon.png';
+  static const String googleIcon = 'assets/images/icon_google.png';
 }
