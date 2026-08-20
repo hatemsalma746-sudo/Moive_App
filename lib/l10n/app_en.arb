@@ -28,5 +28,7 @@
   "phoneNumber": "Phone Number",
   "createAccount": "Create Account",
   "verifyEmail": "Verify Email",
-  "search": "Search"
+  "search": "Search",
+  "confirmPassword": "Confirm Password",
+  "alreadyHaveAccount": "Already Have Account ?"
 }

@@ -16,7 +16,6 @@ class IntroductionScreen extends StatelessWidget {
     double height = context.height;
     double width = context.width;
     return Scaffold(
-      backgroundColor: AppColors.blackColor,
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
