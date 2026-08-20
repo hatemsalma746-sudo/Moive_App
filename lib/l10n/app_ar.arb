@@ -28,5 +28,7 @@
   "phoneNumber": "رقم الهاتف",
   "createAccount": "انشاء حساب",
   "verifyEmail": "التحقق من البريد الإلكتروني",
-  "search": "بحث"
+  "search": "بحث",
+  "confirmPassword": "تأكيد كلمة المرور",
+  "alreadyHaveAccount": "لديك حساب بالفعل ؟"
 }

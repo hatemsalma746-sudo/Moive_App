@@ -48,7 +48,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       ''
     ];
     return Scaffold(
-      backgroundColor: AppColors.blackColor,
       body: PageView(
 
         children: [

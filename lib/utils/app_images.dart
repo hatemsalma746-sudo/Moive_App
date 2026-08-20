@@ -15,15 +15,15 @@ class AppImages {
   static const String empty = 'assets/images/empty.png';
   static const String forgetPassword =
       'assets/images/Forgot password-bro 1.png';
-  static const String gamer1 = 'assets/images/gamer (1).png';
-  static const String gamer2 = 'assets/images/gamer (2).png';
-  static const String gamer3 = 'assets/images/gamer (3).png';
-  static const String gamer4 = 'assets/images/gamer (4).png';
-  static const String gamer5 = 'assets/images/gamer (5).png';
-  static const String gamer6 = 'assets/images/gamer (6).png';
-  static const String gamer7 = 'assets/images/gamer (7).png';
-  static const String gamer8 = 'assets/images/gamer (8).png';
-  static const String gamer9 = 'assets/images/gamer (9).png';
+  static const String gamer1 = 'assets/images/gamer1.png';
+  static const String gamer2 = 'assets/images/gamer2.png';
+  static const String gamer3 = 'assets/images/gamer3.png';
+  static const String gamer4 = 'assets/images/gamer4.png';
+  static const String gamer5 = 'assets/images/gamer5.png';
+  static const String gamer6 = 'assets/images/gamer6.png';
+  static const String gamer7 = 'assets/images/gamer7.png';
+  static const String gamer8 = 'assets/images/gamer8.png';
+  static const String gamer9 = 'assets/images/gamer9.png';
   static const String godzilla = 'assets/images/godzilla.png';
   static const String hobbsAndShow = 'assets/images/hobbs_and_Shaw.png';
   static const String ironMan = 'assets/images/iron_Man.png';
