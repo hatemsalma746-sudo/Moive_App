@@ -34,7 +34,7 @@
   "deleteAccount":"Delete Account",
   "updateDate":"Update Date",
   "action":"Action",
-  "seeMore":"See More"
+  "seeMore":"See More",
   "confirmPassword": "Confirm Password",
   "alreadyHaveAccount": "Already Have Account ?"
 }
