@@ -45,6 +45,9 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: TextStyle(
+        color: Colors.white,
+      ),
       onChanged: onChanged,
       controller: controller,
       validator: validator,
@@ -74,7 +77,10 @@ class CustomTextField extends StatelessWidget {
     );
   }
 
-  OutlineInputBorder _buildDecorationBorder({required double radius, required Color borderColor}){
+  OutlineInputBorder _buildDecorationBorder({
+    required double radius,
+    required Color borderColor
+  }){
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(radius),
       borderSide: BorderSide(

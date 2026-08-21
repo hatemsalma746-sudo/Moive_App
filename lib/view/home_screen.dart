@@ -8,7 +8,7 @@ import 'package:moive_app/utils/app_images.dart';
 import 'package:moive_app/utils/screen_utils.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
 
   @override
@@ -16,9 +16,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   int selectedIndex = 0;
   List<Widget> tabsList = [
-    MainPage(), SearchPage(), ExplorePage(), UpdateProfileScreen(),
+    MainPage(),
+    SearchPage(),
+    ExplorePage(),
+    UpdateProfileScreen(),
   ];
   List<Widget>movies = [
     Image.asset(AppImages.blackPanther,),
@@ -30,47 +34,74 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     double height = context.height;
     double width = context.width;
     return Scaffold(
         backgroundColor: AppColors.blackColor,
         bottomNavigationBar:
         Padding(
-          padding: EdgeInsets.fromLTRB(
-              width * 0.04, 0, width * 0.04, height * 0.01),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: BottomNavigationBar(
-                selectedItemColor: AppColors.yellowColor,
-                unselectedItemColor: AppColors.whiteColor,
-                currentIndex: selectedIndex,
-                onTap: (index) {
-                  selectedIndex = index;
-                  setState(() {
-
-                  });
-                },
-                type: BottomNavigationBarType.fixed,
-                backgroundColor: AppColors.greyColor,
-                items: [
-                  BottomNavigationBarItem(
-                    icon: ImageIcon(AssetImage(AppImages.homeIcon)),
-                    label: "",),
-                  BottomNavigationBarItem(
-                      icon: ImageIcon(AssetImage(AppImages.searchIcon)),
-                      label: ""),
-                  BottomNavigationBarItem(
-                      icon: ImageIcon(AssetImage(AppImages.exploreIcon)),
-                      label: ""),
-                  BottomNavigationBarItem(
-
-                      icon: ImageIcon(AssetImage(AppImages.profileIcon)),
-                      label: ""),
-                ]),
+          padding: EdgeInsets.only(
+            right: width * 0.021,
+            left: width * 0.021,
+            bottom: height * 0.04,
           ),
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+            child: BottomNavigationBar(
+              selectedItemColor: AppColors.yellowColor,
+              unselectedItemColor: AppColors.whiteColor,
+              currentIndex: selectedIndex,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: AppColors.greyColor,
+
+              onTap: (index) {
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
+
+              items: [
+                BottomNavigationBarItem(
+                  icon: ImageIcon(
+                    AssetImage(AppImages.homeIcon),
+                    size: 28,
+                  ),
+                  label: '',
+                ),
+
+                BottomNavigationBarItem(
+                  icon: ImageIcon(
+                    AssetImage(AppImages.searchIcon),
+                    size: 28,
+                  ),
+                  label: '',
+                ),
+
+                BottomNavigationBarItem(
+                  icon: ImageIcon(
+                    AssetImage(AppImages.exploreIcon),
+                    size: 28,
+                  ),
+                  label: ''
+                ),
+
+                BottomNavigationBarItem(
+                  icon: ImageIcon(
+                    AssetImage(AppImages.profileIcon),
+                    size: 28,
+                  ),
+                  label: '',
+                ),
+              ],
+            ),
+          )
         ),
 
         body: tabsList[selectedIndex]
     );
   }
+
 }

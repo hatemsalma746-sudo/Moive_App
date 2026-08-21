@@ -7,7 +7,7 @@ class ChangeAvatar extends StatelessWidget {
   final int selectedAvatar;
   final Function(int) onAvatarSelected;
 
-  ChangeAvatar({
+  const ChangeAvatar({
     super.key,
     required this.avatars,
     required this.selectedAvatar,

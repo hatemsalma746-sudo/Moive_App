@@ -5,9 +5,10 @@ import 'package:moive_app/utils/app_colors.dart';
 import 'package:moive_app/utils/app_images.dart';
 import 'package:moive_app/utils/app_styles.dart';
 import 'package:moive_app/utils/screen_utils.dart';
+import 'package:moive_app/view_model/auth_data_model.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({super.key});
+  const MainPage({super.key});
 
   @override
   State<MainPage> createState() => _HomeScreenState();
@@ -15,13 +16,15 @@ class MainPage extends StatefulWidget {
 
 class _HomeScreenState extends State<MainPage> {
   int selectedIndex = 0;
-  List<Widget> movies = [
-    Image.asset(AppImages.blackPanther),
-    Image.asset(AppImages.doctorStrange),
-    Image.asset(AppImages.moive1917),
-    Image.asset(AppImages.captainAmerica),
-    Image.asset(AppImages.avengers),
+
+  List<String> movies = [
+    AppImages.blackPanther,
+    AppImages.doctorStrange,
+    AppImages.moive1917,
+    AppImages.captainAmerica,
+    AppImages.avengers,
   ];
+
   List<String> actionMovies = [
     AppImages.godzilla,
     AppImages.badBoys,
@@ -32,11 +35,13 @@ class _HomeScreenState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    AuthModel.getUserData();
+
     double height = context.height;
     double width = context.width;
 
-    return Scaffold(
-      body: Stack(
+    return Stack(
         fit: StackFit.expand,
         children: [
           Image(image: AssetImage(AppImages.moive1917), fit: BoxFit.fill),
@@ -54,41 +59,28 @@ class _HomeScreenState extends State<MainPage> {
               child: Column(
                 children: [
                   Image(image: AssetImage(AppImages.available)),
-                  SizedBox(
-                    height: height * 0.35,
-                    child: CarouselSlider.builder(
-                      itemCount: movies.length,
-                      itemBuilder:
-                          (
-                            BuildContext context,
-                            int itemIndex,
-                            int pageViewIndex,
-                          ) => Container(
-                            margin: EdgeInsets.symmetric(
-                              horizontal: width * 0.02,
-                            ),
-                            child: Container(
-                              clipBehavior: Clip.antiAlias,
-                              width: double.infinity,
-                              height: double.infinity,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Positioned.fill(child: movies[itemIndex]),
-                                ],
-                              ),
-                            ),
-                          ),
-                      options: CarouselOptions(
-                        height: height * 0.35,
-                        viewportFraction: 0.45,
-                        enlargeCenterPage: true,
-                        enlargeFactor: 0.3,
-                        padEnds: true,
-                        enableInfiniteScroll: false,
+                  CarouselSlider.builder(
+                    itemCount: movies.length,
+                    itemBuilder:
+                        (
+                        BuildContext context,int itemIndex,int pageViewIndex,
+                        ) => Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.yellowColor,
+                          borderRadius: BorderRadius.circular(25),
+                          image: DecorationImage(
+                            image: AssetImage(movies[itemIndex]),
+                            fit: BoxFit.cover
+                          )
+                        ),
                       ),
+                    options: CarouselOptions(
+                      height: height * 0.40,
+                      viewportFraction: 0.60,
+                      enlargeCenterPage: true,
+                      enlargeFactor: 0.3,
+                      padEnds: true,
+                      enableInfiniteScroll: true,
                     ),
                   ),
                   Image(image: AssetImage(AppImages.watchNow)),
@@ -172,7 +164,9 @@ class _HomeScreenState extends State<MainPage> {
             ),
           ),
         ],
-      ),
     );
   }
 }
+
+
+

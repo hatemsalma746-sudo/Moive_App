@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "207709990528",
+    "project_id": "movie-faf1b",
+    "storage_bucket": "movie-faf1b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:207709990528:android:84edb97238afaa96300065",
+        "android_client_info": {
+          "package_name": "com.example.moive_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAGhRwdcrNut_HNcSk_3oSn6Q0jXXNIyc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

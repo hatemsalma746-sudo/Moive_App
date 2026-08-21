@@ -10,6 +10,8 @@ import 'package:moive_app/view/widgets/custom_elevated_button.dart';
 import 'package:moive_app/view/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
 
+import '../../provider/user_provider.dart';
+
 class UpdateProfileScreen extends StatefulWidget {
   UpdateProfileScreen({super.key});
 
@@ -38,6 +40,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     var width = context.width;
     var height = context.height;
     Provider.of<AppLanguageProvider>(context);
+    final userProvider = context.watch<UserProvider>();
 
     return Scaffold(
       appBar: AppBar(
@@ -90,21 +93,21 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                 );
               },
               child: CircleAvatar(
-                backgroundImage: AssetImage(avatars[selectedAvatar]),
+                backgroundImage: AssetImage(userProvider.currentUser?.image ?? ''),
                 maxRadius: height * 0.08,
               ),
             ),
             CustomTextField(
               borderColor: AppColors.greyColor,
               fillColor: AppColors.greyColor,
-              hintText: "John Safwat",
+              hintText: userProvider.currentUser?.name ?? '',
               preIcon: Icon(Icons.person, color: AppColors.whiteColor),
               hintStyle: AppStyles.descriptions,
             ),
             CustomTextField(
               borderColor: AppColors.greyColor,
               fillColor: AppColors.greyColor,
-              hintText: "01200000000",
+              hintText: userProvider.currentUser?.phone ?? '',
               preIcon: Icon(Icons.phone, color: AppColors.whiteColor),
               hintStyle: AppStyles.descriptions,
             ),
