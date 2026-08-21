@@ -67,6 +67,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
+                CustomElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(AppRoute.homeScreen);
+                  },
+                  backgroundColor: AppColors.yellowColor,
+                  foregroundColor: AppColors.blackColor,
+                  text: AppLocalizations.of(context)!.login,
+                  borderColor: AppColors.yellowColor,
+                  textColor: AppColors.blackColor,
+
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
