@@ -104,6 +104,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get search => 'Search';
 
   @override
+  String get pickAvatar => 'Pick Avatar';
+
+  @override
+  String get resetPassword => 'Reset Password';
+
+  @override
+  String get deleteAccount => 'Delete Account';
+
+  @override
+  String get updateDate => 'Update Date';
+
+  @override
+  String get action => 'Action';
+
+  @override
+  String get seeMore => 'See More';
+
+  @override
   String get confirmPassword => 'Confirm Password';
 
   @override

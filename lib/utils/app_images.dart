@@ -51,4 +51,5 @@ class AppImages {
   static const String starIcon = 'assets/icons/star_Icon.png';
   static const String watchListIcon = 'assets/icons/watch_ListIcon.png';
   static const String googleIcon = 'assets/images/icon_google.png';
+  static const String homeIcon = 'assets/icons/home.png';
 }

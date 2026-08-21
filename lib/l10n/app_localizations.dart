@@ -278,6 +278,42 @@ abstract class AppLocalizations {
   /// **'Search'**
   String get search;
 
+  /// No description provided for @pickAvatar.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick Avatar'**
+  String get pickAvatar;
+
+  /// No description provided for @resetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get resetPassword;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get deleteAccount;
+
+  /// No description provided for @updateDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Date'**
+  String get updateDate;
+
+  /// No description provided for @action.
+  ///
+  /// In en, this message translates to:
+  /// **'Action'**
+  String get action;
+
+  /// No description provided for @seeMore.
+  ///
+  /// In en, this message translates to:
+  /// **'See More'**
+  String get seeMore;
+
   /// No description provided for @confirmPassword.
   ///
   /// In en, this message translates to:
