@@ -1,12 +1,10 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:moive_app/l10n/app_localizations.dart';
-import 'package:moive_app/provider/app_language_provider.dart';
 import 'package:moive_app/utils/app_colors.dart';
 import 'package:moive_app/utils/app_images.dart';
 import 'package:moive_app/utils/app_styles.dart';
 import 'package:moive_app/utils/screen_utils.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({super.key});
@@ -36,7 +34,7 @@ class _HomeScreenState extends State<MainPage> {
   Widget build(BuildContext context) {
     double height = context.height;
     double width = context.width;
-    var languageProvider = Provider.of<AppLanguageProvider>(context);
+
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
