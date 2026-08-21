@@ -28,5 +28,11 @@
   "phoneNumber": "Phone Number",
   "createAccount": "Create Account",
   "verifyEmail": "Verify Email",
-  "search": "Search"
+  "search": "Search",
+  "pickAvatar":"Pick Avatar",
+  "resetPassword":"Reset Password",
+  "deleteAccount":"Delete Account",
+  "updateDate":"Update Date",
+  "action":"Action",
+  "seeMore":"See More"
 }

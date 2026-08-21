@@ -3,6 +3,7 @@ import 'package:moive_app/l10n/app_localizations.dart';
 import 'package:moive_app/provider/app_language_provider.dart';
 import 'package:moive_app/utils/app_colors.dart';
 import 'package:moive_app/utils/app_images.dart';
+import 'package:moive_app/utils/app_route.dart';
 import 'package:moive_app/utils/app_styles.dart';
 import 'package:moive_app/utils/screen_utils.dart';
 import 'package:moive_app/view/widgets/custom_elevated_button.dart';
@@ -66,6 +67,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
+              CustomElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(AppRoute.homeScreen);
+                },
+                backgroundColor: AppColors.yellowColor,
+                foregroundColor: AppColors.blackColor,
+                text: AppLocalizations.of(context)!.login,
+                borderColor: AppColors.yellowColor,
+                textColor: AppColors.blackColor,
+
+              ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
