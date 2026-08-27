@@ -18,6 +18,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   int currentIndex = 0;
 
+  final List<List<Color>> onboardingGradients = [
+    [
+      AppColors.turquoise1,
+      AppColors.turquoise
+    ],
+    [
+      AppColors.orange1,
+      AppColors.orange,
+    ],
+    [
+      AppColors.purple1,
+      AppColors.purple,
+    ],
+    [
+      AppColors.maroon1,
+      AppColors.maroon,
+    ],
+    [
+      AppColors.blackGradient1,
+      AppColors.blackGradient
+    ],
+  ];
+
+
   List<String> onboardingImage = [
     AppImages.marvelPoster,
     AppImages.godFather1,
@@ -59,10 +83,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(onboardingImage[currentIndex]),
-                  fit: BoxFit.fill,
-                )
+                  fit: BoxFit.fill,),
             ),
-                    ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: onboardingGradients[currentIndex],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomLeft
+                  )
+              ),
+            ),
         Container(
           width: double.infinity,
           decoration: BoxDecoration(

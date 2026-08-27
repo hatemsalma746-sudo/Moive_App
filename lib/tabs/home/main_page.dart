@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:moive_app/l10n/app_localizations.dart';
+import 'package:moive_app/model/movies_list/movies.dart';
+import 'package:moive_app/services/movie_service.dart';
 import 'package:moive_app/utils/app_colors.dart';
 import 'package:moive_app/utils/app_images.dart';
 import 'package:moive_app/utils/app_styles.dart';
@@ -17,29 +19,72 @@ class MainPage extends StatefulWidget {
 class _HomeScreenState extends State<MainPage> {
   int selectedIndex = 0;
 
-  List<String> movies = [
-    AppImages.blackPanther,
-    AppImages.doctorStrange,
-    AppImages.moive1917,
-    AppImages.captainAmerica,
-    AppImages.avengers,
-  ];
+  List<Movies> movies = [];
+  List<Movies> actionMovies = [];
+  bool isLoading = true;
+  String? errorMessage;
 
-  List<String> actionMovies = [
-    AppImages.godzilla,
-    AppImages.badBoys,
-    AppImages.blackWidow,
-    AppImages.ironMan,
-    AppImages.captainAmerica,
-  ];
+  @override
+  void initState() {
+    super.initState();
+    loadMovies();
+  }
+
+  Future<void> loadMovies() async {
+    try {
+      final allMovies = await MovieService.fetchMovies();
+      final action = allMovies
+          .where((m) => m.genres?.contains('Action') ?? false)
+          .toList();
+
+      setState(() {
+        movies = allMovies;
+        actionMovies = action.isNotEmpty ? action : allMovies;
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        errorMessage = e.toString();
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-
     AuthModel.getUserData();
-
     double height = context.height;
     double width = context.width;
+
+    if (isLoading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (errorMessage != null) {
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(AppLocalizations.of(context)!
+                  .somethingWentWrongWhileLoadingTheMovies
+                , style: AppStyles.appbarTitleStyle,),
+
+              TextButton(
+                onPressed: () {
+                  setState(() => isLoading = true);
+                  loadMovies();
+                },
+                child: Text(AppLocalizations.of(context)!.tryAgain,
+                  style: AppStyles.login,),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
 
     return Stack(
         fit: StackFit.expand,
@@ -69,11 +114,14 @@ class _HomeScreenState extends State<MainPage> {
                           color: AppColors.yellowColor,
                           borderRadius: BorderRadius.circular(25),
                           image: DecorationImage(
-                            image: AssetImage(movies[itemIndex]),
-                            fit: BoxFit.cover
-                          )
-                        ),
+                            image: NetworkImage(
+                              movies[itemIndex].mediumCoverImage ?? '',
+                            ),
+                            fit: BoxFit.cover,
+                            onError: (exception, stackTrace) {},
+                          ),
                       ),
+                        ),
                     options: CarouselOptions(
                       height: height * 0.40,
                       viewportFraction: 0.60,
@@ -126,9 +174,20 @@ class _HomeScreenState extends State<MainPage> {
                           child: Stack(
                             children: [
                               Positioned.fill(
-                                child: Image.asset(
-                                  actionMovies[index],
+                                child: Image.network(
+                                  actionMovies[index].mediumCoverImage ?? '',
                                   fit: BoxFit.cover,
+                                  loadingBuilder: (context, child, progress) {
+                                    if (progress == null) return child;
+                                    return Container(
+                                      color: Colors.grey[900],
+                                      child: const Center(
+                                        child: CircularProgressIndicator(),
+                                ),
+                                    );
+                                  },
+                                  errorBuilder: (context, error, stack) =>
+                                      Container(color: Colors.grey[800]),
                                 ),
                               ),
                               Positioned(
@@ -137,7 +196,8 @@ class _HomeScreenState extends State<MainPage> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      "7.7",
+                                      actionMovies[index].rating
+                                          ?.toStringAsFixed(1) ?? '0',
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 12,

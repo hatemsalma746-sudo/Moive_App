@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -126,4 +127,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get alreadyHaveAccount => 'لديك حساب بالفعل ؟';
+
+  @override
+  String get somethingWentWrongWhileLoadingTheMovies =>
+      'حصل خطأ في تحميل الأفلام';
+
+  @override
+  String get tryAgain => 'حاول تاني';
 }

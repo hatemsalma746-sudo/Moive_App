@@ -325,6 +325,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Already Have Account ?'**
   String get alreadyHaveAccount;
+
+  /// No description provided for @somethingWentWrongWhileLoadingTheMovies.
+  ///
+  /// In en, this message translates to:
+  /// **'Something Went Wrong While Loading TheMovies.'**
+  String get somethingWentWrongWhileLoadingTheMovies;
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Again'**
+  String get tryAgain;
 }
 
 class _AppLocalizationsDelegate
