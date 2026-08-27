@@ -7,4 +7,5 @@ class AppRoute {
   static String homeScreen = 'Home View';
   static String detailsScreen = 'Details View';
   static String updateProfileScreen = 'Update Profile Screen';
+  static String moviesDetails = 'Movies Details Screen';
 }

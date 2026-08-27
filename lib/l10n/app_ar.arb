@@ -36,5 +36,7 @@
   "deleteAccount":"حذف الحساب",
   "updateDate":"تحديث البيانات",
   "action":"أكشن",
-  "seeMore":"عرض المزيد"
+  "seeMore":"عرض المزيد",
+  "somethingWentWrongWhileLoadingTheMovies":"حصل خطأ في تحميل الأفلام",
+  "tryAgain":"حاول تاني"
 }

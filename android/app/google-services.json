@@ -12,7 +12,20 @@
           "package_name": "com.example.moive_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "207709990528-67q179a32r35ittbdjn103nkb79uouhk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.moive_app",
+            "certificate_hash": "25501a14fcec674c9771d242ec6685d66b61b55a"
+          }
+        },
+        {
+          "client_id": "207709990528-ra2dt401unus68rmipavqgkt35u5fool.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCAGhRwdcrNut_HNcSk_3oSn6Q0jXXNIyc"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "207709990528-ra2dt401unus68rmipavqgkt35u5fool.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "207709990528-n5ur9bmtu0la8d15hutkudor0ui6qqdn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.moiveApp"
+              }
+            }
+          ]
         }
       }
     }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:moive_app/l10n/app_localizations.dart';
 import 'package:moive_app/model/firebase_model/user_model.dart';
 import 'package:moive_app/provider/app_language_provider.dart';
@@ -164,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   // todo: login with google
                   CustomElevatedButton(
                       onPressed: (){
-                        // todo: login with google
+                        loginWithGoogle(context);
                       },
                       backgroundColor: AppColors.yellowColor,
                       foregroundColor: AppColors.blackColor,
@@ -274,8 +275,6 @@ class _LoginScreenState extends State<LoginScreen> {
         password: passwordController.text.trim(),
       );
 
-      print('Logged in: ${credential.user?.email}');
-
       if (!mounted) return;
 
       // Get User UID
@@ -309,10 +308,6 @@ class _LoginScreenState extends State<LoginScreen> {
       // Save User in Provider
       context.read<UserProvider>().updateUser(user);
 
-      print('User Name: ${user.name}');
-      print('User Email: ${user.email}');
-      print('User Phone: ${user.phone}');
-      print('User Image: ${user.image}');
 
       DialogUtils.hideLoading(context: context);
 
@@ -334,8 +329,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
       DialogUtils.hideLoading(context: context);
 
-      print('Firebase Auth Error: ${e.code}');
-      print('Message: ${e.message}');
 
       String message;
 
@@ -377,8 +370,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
       DialogUtils.hideLoading(context: context);
 
-      print('Error: $e');
-
       DialogUtils.showMessage(
         context: context,
         text: 'Something went wrong. Please try again.',
@@ -386,6 +377,98 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.pop(context);
         },
       );
+    }
+  }
+
+  Future<void> loginWithGoogle(BuildContext context) async {
+    try {
+      DialogUtils.showLoading(
+        context: context,
+        text: 'Loading...',
+      );
+
+      // Google Sign In
+      final GoogleSignInAccount? googleUser =
+      await GoogleSignIn().signIn();
+
+      // User cancelled Google Sign In
+      if (googleUser == null) {
+        Navigator.pop(context);
+        return;
+      }
+
+      // Get Google Auth
+      final GoogleSignInAuthentication googleAuth =
+      await googleUser.authentication;
+
+      // Create Firebase Credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      // Firebase Login
+      final UserCredential userCredential =
+      await FirebaseAuth.instance.signInWithCredential(
+        credential,
+      );
+
+      final firebaseUser = userCredential.user;
+
+      if (firebaseUser == null) {
+        throw Exception('Firebase user is null');
+      }
+
+      // Get user from Firestore
+      final userDoc = await FirebaseFirestore.instance
+          .collection(Users.collectionName)
+          .doc(firebaseUser.uid)
+          .get();
+
+      late Users user;
+
+      if (userDoc.exists) {
+        user = Users.fromFirebaseStore(userDoc.data()!);
+      } else {
+        user = Users(
+          id: firebaseUser.uid,
+          name: firebaseUser.displayName ?? '',
+          email: firebaseUser.email ?? '',
+          phone: firebaseUser.phoneNumber ?? '',
+          image: AppImages.gamer1,
+        );
+
+        await FirebaseFirestore.instance
+            .collection(Users.collectionName)
+            .doc(firebaseUser.uid)
+            .set(
+          user.toFirebaseStore(),
+        );
+      }
+
+      // Save user in Provider
+      Provider.of<UserProvider>(
+        context,
+        listen: false,
+      ).updateUser(user);
+
+      DialogUtils.showMessage(
+          context: context,
+          text: 'Successful',
+          onPressed: (){
+            Navigator.pop(context);
+
+            Navigator.pushReplacementNamed(
+              context,
+              AppRoute.homeScreen,
+            );
+          }
+      );
+
+    } catch (e) {
+      Navigator.pop(context);
+
+      print('GOOGLE LOGIN ERROR: $e');
     }
   }
 }

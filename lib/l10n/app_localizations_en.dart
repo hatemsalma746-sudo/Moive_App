@@ -126,4 +126,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get alreadyHaveAccount => 'Already Have Account ?';
+
+  @override
+  String get somethingWentWrongWhileLoadingTheMovies =>
+      'Something Went Wrong While Loading TheMovies.';
+
+  @override
+  String get tryAgain => 'Try Again';
 }

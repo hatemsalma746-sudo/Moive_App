@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moive_app/tabs/explore/explore_page.dart';
 import 'package:moive_app/tabs/home/main_page.dart';
 import 'package:moive_app/tabs/search/search_page.dart';
-import 'package:moive_app/tabs/update_profile/update_profile_screen.dart';
+import 'package:moive_app/tabs/update_profile/profile_page.dart';
 import 'package:moive_app/utils/app_colors.dart';
 import 'package:moive_app/utils/app_images.dart';
 import 'package:moive_app/utils/screen_utils.dart';
@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     MainPage(),
     SearchPage(),
     ExplorePage(),
-    UpdateProfileScreen(),
+    ProfilePage(),
   ];
   List<Widget>movies = [
     Image.asset(AppImages.blackPanther,),

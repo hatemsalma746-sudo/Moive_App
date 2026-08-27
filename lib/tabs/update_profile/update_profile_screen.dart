@@ -9,7 +9,6 @@ import 'package:moive_app/view/widgets/change_avatar.dart';
 import 'package:moive_app/view/widgets/custom_elevated_button.dart';
 import 'package:moive_app/view/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
-
 import '../../provider/user_provider.dart';
 
 class UpdateProfileScreen extends StatefulWidget {

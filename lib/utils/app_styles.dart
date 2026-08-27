@@ -53,4 +53,22 @@ class AppStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.yellowColor,
   );
+
+  static TextStyle bold20White = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: AppColors.whiteColor,
+  );
+
+  static TextStyle bold30White = TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.bold,
+    color: AppColors.whiteColor,
+  );
+
+  static TextStyle bold20grey = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: AppColors.greyColor,
+  );
 }

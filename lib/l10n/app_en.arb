@@ -36,5 +36,7 @@
   "action":"Action",
   "seeMore":"See More",
   "confirmPassword": "Confirm Password",
-  "alreadyHaveAccount": "Already Have Account ?"
+  "alreadyHaveAccount": "Already Have Account ?",
+  "somethingWentWrongWhileLoadingTheMovies":"Something Went Wrong While Loading TheMovies.",
+  "tryAgain":"Try Again"
 }

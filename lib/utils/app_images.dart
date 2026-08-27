@@ -34,6 +34,7 @@ class AppImages {
   static const String theDarkKnight = 'assets/images/the_Dark-Knight.png';
   static const String watchNow = 'assets/images/watch_Now.png';
   static const String wednesday = 'assets/images/wednesday.png';
+  static const String imageNotFount = 'https://cdn.dribbble.com/userupload/47872370/file/817a321dbb7954f48cd241da42e19a32.jpg?resize=752x&vertical=center';
 
   // icons
   static const String clockIcon = 'assets/icons/clock_Icon.png';
@@ -52,4 +53,7 @@ class AppImages {
   static const String watchListIcon = 'assets/icons/watch_ListIcon.png';
   static const String googleIcon = 'assets/images/icon_google.png';
   static const String homeIcon = 'assets/icons/home.png';
+  static const String exitIcon = 'assets/icons/logout_icon.png';
+  static const String playImage = 'assets/images/play.png';
+
 }

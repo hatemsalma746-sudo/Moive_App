@@ -126,4 +126,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get alreadyHaveAccount => 'لديك حساب بالفعل ؟';
+
+  @override
+  String get somethingWentWrongWhileLoadingTheMovies =>
+      'حصل خطأ في تحميل الأفلام';
+
+  @override
+  String get tryAgain => 'حاول تاني';
 }
