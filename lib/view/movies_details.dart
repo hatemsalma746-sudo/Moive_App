@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:moive_app/model/movies_details/cast.dart';
 import 'package:moive_app/model/movies_details/movie_details.dart';
 import 'package:moive_app/services/details_model.dart';
+import 'package:moive_app/services/suggestion_services.dart';
 import 'package:moive_app/utils/app_colors.dart';
 import 'package:moive_app/utils/app_images.dart';
 import 'package:moive_app/utils/app_styles.dart';
 import 'package:moive_app/utils/screen_utils.dart';
 import 'package:moive_app/view/widgets/box_item_widget.dart';
 import 'package:moive_app/view/widgets/custom_elevated_button.dart';
-import 'package:moive_app/services/suggestion_services.dart';
+
 import '../model/moive_suggetion/movies.dart';
 
 class MoviesDetails extends StatefulWidget {
@@ -53,8 +53,9 @@ class _MoviesDetailsState extends State<MoviesDetails> {
             print(movieId);
             return Center(
               child: Text(
-                snapshot.error.toString(),tyle: TextStyle(color: Colors.white),
-              )),
+                snapshot.error.toString(),
+                style: TextStyle(color: Colors.white),
+              )
             );
           }
           if (!snapshot.hasData) {
