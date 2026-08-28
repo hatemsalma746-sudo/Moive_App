@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:moive_app/model/movies_details/movie_details.dart';
 import 'package:moive_app/services/details_model.dart';
+import 'package:moive_app/services/suggestion_services.dart';
 import 'package:moive_app/utils/app_colors.dart';
 import 'package:moive_app/utils/app_images.dart';
 import 'package:moive_app/utils/app_styles.dart';
 import 'package:moive_app/utils/screen_utils.dart';
 import 'package:moive_app/view/widgets/box_item_widget.dart';
 import 'package:moive_app/view/widgets/custom_elevated_button.dart';
+
+import '../model/moive_suggetion/movies.dart';
 
 class MoviesDetails extends StatefulWidget {
   const MoviesDetails({super.key});
@@ -18,6 +21,7 @@ class MoviesDetails extends StatefulWidget {
 class _MoviesDetailsState extends State<MoviesDetails> {
   late int movieId;
   late Future<MovieDetails> movieDetails;
+  late Future<List<Movies>> movieSuggestions;
 
   @override
   void didChangeDependencies() {
@@ -28,6 +32,7 @@ class _MoviesDetailsState extends State<MoviesDetails> {
     movieId = args as int;
 
     movieDetails = DetailsModel.getMovieDetails(movieId);
+    movieSuggestions = SuggestionService.getMovieSuggestions(movieId);
   }
 
   @override
@@ -49,7 +54,8 @@ class _MoviesDetailsState extends State<MoviesDetails> {
             return Center(
               child: Text(
                 snapshot.error.toString(),
-              ),
+                style: TextStyle(color: Colors.white),
+              )
             );
           }
           if (!snapshot.hasData) {
@@ -170,12 +176,191 @@ class _MoviesDetailsState extends State<MoviesDetails> {
                         ClipRRect(
                             borderRadius: BorderRadius.circular(16),
                             child: Image.network(movie.largeScreenshotImage3!)),
+                        const SizedBox(height: 10),
+
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Similar',
+                            style: AppStyles.headers,
+                          ),
+                        ),
+
+                        FutureBuilder<List<Movies>>(
+                          future: movieSuggestions,
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            if (snapshot.hasError) {
+                              SizedBox(height: height * 0.04);
+                            }
+                            final suggestions = snapshot.data ?? [];
+
+                            return GridView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: suggestions.length,
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 12,
+                                mainAxisSpacing: 12,
+                                childAspectRatio: 0.7,
+                              ),
+                              itemBuilder: (context, index) {
+                                final suggestion = suggestions[index];
+
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: Stack(
+                                    children: [
+                                      Positioned.fill(
+                                        child: Image.network(
+                                          suggestion.mediumCoverImage ??
+                                              suggestion.smallCoverImage ??
+                                              AppImages.imageNotFount,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+
+                                      Positioned(
+                                        top: 8,
+                                        left: 8,
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: width * 0.01,
+                                            vertical: height * 0.01,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey,
+                                            borderRadius: BorderRadius.circular(
+                                                10),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              const Icon(
+                                                Icons.star,
+                                                color: Color(0xFFF6BD00),
+                                                size: 16,
+                                              ),
+                                              SizedBox(width: width * 0.02),
+                                              Text(
+                                                suggestion.rating
+                                                    ?.toStringAsFixed(1) ??
+                                                    '0.0',
+                                                style: TextStyle(
+                                                  color: AppColors.whiteColor,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                        SizedBox(height: height * 0.04),
+                        Align(alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Summary', style: AppStyles.descriptions,),
+                        ),
+                        Align(alignment: Alignment.centerLeft,
+                          child: Text(movie.descriptionFull ?? '',
+                            style: AppStyles.login,),
+                        ),
+                        SizedBox(height: height * 0.04),
+                        Align(alignment: Alignment.centerLeft,
+                          child: Text('Cast', style: AppStyles.headers,),
+                        ),
+                        Column(
+                          spacing: height * 0.01,
+                          children: [
+                            for (int i = 0; i < (movie.cast?.length ?? 0); i++)
+                              Container(width: double.infinity,
+                                margin:
+                                EdgeInsets.only(bottom: 12),
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: AppColors.blackColor3,
+                                  borderRadius: BorderRadius.circular(16),),
+                                child: Row(children:
+                                [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: Image.network(
+                                      movie.cast![i].urlSmallImage ??
+                                          AppImages.imageNotFount,
+                                      width: width * 0.22,
+                                      height: height * 0.11,
+                                      fit: BoxFit.cover, errorBuilder:
+                                        (context, error, stackTrace) {
+                                      return Image.asset(AppImages.ironMan,
+                                        width: width * 0.22,
+                                        height: height * 0.11,
+                                        fit: BoxFit.cover,
+                                      );
+                                    },
+                                    ),
+                                  ),
+                                  SizedBox(width: 12),
+                                  Expanded(child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment
+                                        .start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(movie.cast![i].name ?? '',
+                                        style: AppStyles.smallWhiteText,),
+                                      SizedBox(height: height * 0.01),
+                                      Text(movie.cast![i].characterName ?? '',
+                                        style: TextStyle(
+                                          color: AppColors.whiteColor,
+                                          fontSize: 14,),
+                                      ),
+                                    ],
+                                  ),
+                                  ),
+                                ],
+                                ),
+                              ),
+                          ],
+                        ),
+                        Align(alignment: Alignment.centerLeft,
+                          child: Text('Genres', style: AppStyles.headers,),
+                        ), Wrap(spacing: 10, runSpacing: 10, children:
+                        [ for (final genre in (movie.genres ?? []))
+                          Container(padding:
+                          EdgeInsets.symmetric(
+                            horizontal: width * 0.01, vertical: height * 0.01,
+                          ),
+                            decoration: BoxDecoration(
+                              color: AppColors.blackColor3,
+                              borderRadius: BorderRadius.circular(12),),
+                            child: Text(genre,
+                              style:
+                              TextStyle(
+                                color: AppColors.whiteColor, fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ],
+                        )
                       ],
                     ),
                   ),
                 ),
               ],
             ),
+
           );
         },
       ),
