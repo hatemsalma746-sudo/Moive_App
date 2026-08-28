@@ -45,7 +45,7 @@ class MovieDetails {
     titleLong = json['title_long'];
     slug = json['slug'];
     year = json['year'];
-    rating = json['rating'];
+    rating = (json['rating'] as num?)?.toDouble();
     runtime = json['runtime'];
     genres = json['genres'] != null ? json['genres'].cast<String>() : [];
     likeCount = json['like_count'];

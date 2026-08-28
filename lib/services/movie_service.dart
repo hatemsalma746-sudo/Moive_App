@@ -11,7 +11,6 @@ class MovieService {
     final uri = Uri.parse(
       'https://${ApiConstant.baseUrl}/api/v2${Endpoint.endPointOfListMovie}${genre != null ? '?genre=$genre' : ''}',
     );
-
     final response = await http.get(uri);
 
     if (response.statusCode == 200) {

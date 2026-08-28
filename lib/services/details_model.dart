@@ -1,9 +1,9 @@
 import 'dart:convert';
 
+import 'package:http/http.dart' as http;
 import 'package:moive_app/model/movies_details/movie_details.dart';
 import 'package:moive_app/services/api_constant.dart';
 import 'package:moive_app/services/endpoint.dart';
-import 'package:http/http.dart' as http;
 
 class DetailsModel {
 
@@ -14,7 +14,7 @@ class DetailsModel {
   // &with_cast=true
 
   static Future<MovieDetails> getMovieDetails(int movieId) async {
-    Uri url = Uri.http(
+    Uri url = Uri.https(
       ApiConstant.baseUrl,
       Endpoint.endPointOfDetails,
       {
@@ -23,12 +23,16 @@ class DetailsModel {
         'with_cast': 'true',
       },
     );
-
+    print("URL: $url");
     final response = await http.get(url);
 
     if (response.statusCode != 200) {
       throw Exception('Failed to load movie details');
     }
+    print("URL: $url");
+    print("STATUS: ${response.statusCode}");
+    print("BODY: ${response.body}");
+
 
     final jsonData = jsonDecode(response.body);
 
