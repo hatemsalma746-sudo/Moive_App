@@ -36,18 +36,31 @@ class DetailsModel {
 
     final jsonData = jsonDecode(response.body);
 
-    print(MovieDetails.fromJson(
-      jsonData['data']['movie'],
-    ));
-    print('MOVIE ID: ${jsonData['data']['movie']['id']}');
-    print('TITLE: ${jsonData['data']['movie']['title']}');
-    print('RATING: ${jsonData['data']['movie']['rating']}');
-    print('RATING TYPE: ${jsonData['data']['movie']['rating'].runtimeType}');
 
     return MovieDetails.fromJson(
       jsonData['data']['movie'],
     );
 
 
+  }
+
+  Future<void> getSimilarMovies(int movieId) async {
+    final url = Uri.parse(
+      'https://movies-api.accel.li/api/v2/movie_suggestions.json?movie_id=$movieId',
+    );
+
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        print('SIMILAR MOVIES: $data');
+      } else {
+        print('ERROR: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('ERROR GET SIMILAR MOVIES: $e');
+    }
   }
 }
