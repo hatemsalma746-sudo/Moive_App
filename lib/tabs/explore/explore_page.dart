@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:moive_app/model/movies_list/movies.dart';
 import 'package:moive_app/services/movie_service.dart';
 import 'package:moive_app/utils/app_colors.dart';
-import 'package:moive_app/model/movies_list/movies.dart';
 import 'package:moive_app/utils/screen_utils.dart';
 import 'package:moive_app/view/widgets/movie_card.dart';
 
@@ -69,7 +69,7 @@ class _ExplorePageState extends State<ExplorePage> {
     }
   }
 
-  @@override
+  @override
   Widget build(BuildContext context) {
     final genreList = genres.toList();
     double width = context.width;
