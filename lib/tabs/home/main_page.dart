@@ -57,8 +57,10 @@ class _HomeScreenState extends State<MainPage> {
     double width = context.width;
 
     if (isLoading) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
+      return Scaffold(
+        body: Center(child: CircularProgressIndicator(
+          color: AppColors.yellowColor,
+        )),
       );
     }
 
