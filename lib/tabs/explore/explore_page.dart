@@ -10,7 +10,7 @@ class ExplorePage extends StatefulWidget {
 
   const ExplorePage({super.key, this.selectedGenre});
 
-  @@override
+  @override
   State<ExplorePage> createState() => _ExplorePageState();
 }
 
