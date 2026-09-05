@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:moive_app/model/firebase_model//favorite_services.dart';
+import 'package:moive_app/model/movies_list/movies.dart';
 import 'package:moive_app/provider/user_provider.dart';
+import 'package:moive_app/services/movie_service.dart';
 import 'package:moive_app/utils/app_colors.dart';
 import 'package:moive_app/utils/app_images.dart';
 import 'package:moive_app/utils/app_route.dart';
@@ -8,6 +11,7 @@ import 'package:moive_app/utils/app_styles.dart';
 import 'package:moive_app/utils/dialog_utils.dart';
 import 'package:moive_app/utils/screen_utils.dart';
 import 'package:moive_app/view/widgets/custom_elevated_button.dart';
+import 'package:moive_app/view/widgets/movie_card.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -50,6 +54,22 @@ class _ProfilePageState extends State<ProfilePage> {
           });
       print('LOGOUT ERROR: $e');
     }
+  }
+
+  Future<List<Movies>> getFavoriteMovies() async {
+    final ids = await FavoritesService.getFavorites();
+
+    List<Movies> favoriteMovies = [];
+
+    for (final id in ids) {
+      try {
+        final movie = await MovieService.fetchMovieById(id);
+        favoriteMovies.add(movie);
+      } catch (e) {
+        print('ERROR GETTING MOVIE $id: $e');
+      }
+    }
+    return favoriteMovies;
   }
 
 
@@ -158,16 +178,16 @@ class _ProfilePageState extends State<ProfilePage> {
                     )
                   ],
                 ),
-                const TabBar(
-                  indicatorColor: Color(0xffffc107),
+                TabBar(
+                  indicatorColor: AppColors.yellowColor,
                   indicatorWeight: 5,
-                  labelColor: Colors.white,
-                  unselectedLabelColor: Colors.white,
+                  labelColor: AppColors.whiteColor,
+                  unselectedLabelColor: AppColors.whiteColor,
                   tabs: [
                     Tab(
                       icon: Icon(
                         Icons.list,
-                        color: Color(0xffffc107),
+                        color: AppColors.yellowColor,
                         size: 38,
                       ),
                       text: 'Watch List',
@@ -175,7 +195,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Tab(
                       icon: Icon(
                         Icons.folder,
-                        color: Color(0xffffc107),
+                        color: AppColors.yellowColor,
                         size: 38,
                       ),
                       text: 'History',
@@ -188,18 +208,57 @@ class _ProfilePageState extends State<ProfilePage> {
                 Expanded(
                   child: TabBarView(
                     children: [
+                      FutureBuilder<List<Movies>>(
+                        future: getFavoriteMovies(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                              child: CircularProgressIndicator(
+                                color: AppColors.yellowColor,
+                              ),
+                            );
+                          }
 
-                      // Watch List
-                      Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                            AppImages.empty,
-                              width: 180,
+                          if (snapshot.hasError) {
+                            print('WATCHLIST ERROR: ${snapshot.error}');
+
+                            return Center(
+                              child: Text(
+                                'Something went wrong',
+                                style: AppStyles.bold20White,
+                              ),
+                            );
+                          }
+
+                          final favoriteMovies = snapshot.data ?? [];
+
+                          if (favoriteMovies.isEmpty) {
+                            return Center(
+                              child: Image.asset(
+                                AppImages.empty,
+                                width: 180,
+                              ),
+                            );
+                          }
+
+                          return GridView.builder(
+                            padding: const EdgeInsets.all(10),
+                            gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                              childAspectRatio: 0.65,
                             ),
-                          ],
-                        ),
+                            itemCount: favoriteMovies.length,
+                            itemBuilder: (context, index) {
+                              return MovieCard(
+                                movie: favoriteMovies[index],
+                              );
+                            },
+                          );
+                        },
                       ),
 
                       // History

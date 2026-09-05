@@ -76,8 +76,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     hintStyle: AppStyles.login,
                   ),
                   CustomTextField(
+
                     borderColor: AppColors.greyColor,
                     preIcon: Icon(Icons.lock,color: AppColors.whiteColor,),
+                    sufIcon: Icon(Icons.remove_red_eye_outlined),
                     filled: true,
                     fillColor: AppColors.greyColor,
                     hintText: AppLocalizations.of(context)!.password,

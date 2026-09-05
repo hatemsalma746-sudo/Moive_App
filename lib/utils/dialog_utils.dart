@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moive_app/utils/app_colors.dart';
 
 class DialogUtils {
   static void showLoading({required BuildContext context,required String text}){
@@ -7,6 +8,7 @@ class DialogUtils {
         context: context,
         builder: (context) {
           return AlertDialog(
+            backgroundColor: AppColors.blackColor,
             content: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 10,
@@ -14,13 +16,13 @@ class DialogUtils {
                 Text(
                   text,
                   style: TextStyle(
-                    color: Theme.of(context).primaryColor,
+                      color: AppColors.whiteColor,
                     fontSize: 20,
                     fontWeight: FontWeight.bold
                   ),
                 ),
                 CircularProgressIndicator(
-                color: Theme.of(context).primaryColor,
+                  color: AppColors.yellowColor,
               ),
           ]
             ),
@@ -45,10 +47,11 @@ class DialogUtils {
       context: context,
       builder: (context) {
         return AlertDialog(
+          backgroundColor: AppColors.blackColor,
           content: Text(
             text,
             style: TextStyle(
-                color: Theme.of(context).primaryColor,
+                color: AppColors.whiteColor,
                 fontSize: 20,
                 fontWeight: FontWeight.bold
             ),
@@ -59,7 +62,7 @@ class DialogUtils {
               child: Text(
             'Ok',
             style: TextStyle(
-                color: Theme.of(context).primaryColor,
+                color: AppColors.whiteColor,
                 fontSize: 16,
                 fontWeight: FontWeight.bold
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moive_app/model/firebase_model/favorite_services.dart';
 import 'package:moive_app/model/movies_details/movie_details.dart';
 import 'package:moive_app/services/details_model.dart';
 import 'package:moive_app/services/suggestion_services.dart';
@@ -22,6 +23,7 @@ class _MoviesDetailsState extends State<MoviesDetails> {
   late int movieId;
   late Future<MovieDetails> movieDetails;
   late Future<List<Movies>> movieSuggestions;
+  bool isFavorite = false;
 
   @override
   void didChangeDependencies() {
@@ -33,6 +35,19 @@ class _MoviesDetailsState extends State<MoviesDetails> {
 
     movieDetails = DetailsModel.getMovieDetails(movieId);
     movieSuggestions = SuggestionService.getMovieSuggestions(movieId);
+
+    checkFavorite();
+  }
+
+  Future<void> checkFavorite() async {
+    final result =
+    await FavoritesService.isFavorite(movieId);
+
+    if (!mounted) return;
+
+    setState(() {
+      isFavorite = result;
+    });
   }
 
   @override
@@ -45,8 +60,10 @@ class _MoviesDetailsState extends State<MoviesDetails> {
         builder: (context, snapshot) {
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return Center(
+              child: CircularProgressIndicator(
+                color: AppColors.yellowColor,
+              ),
             );
           }
           if (snapshot.hasError) {
@@ -111,13 +128,28 @@ class _MoviesDetailsState extends State<MoviesDetails> {
                                   )
                               ),
                               IconButton(
-                                  onPressed: (){
-
+                                  onPressed: () async {
+                                    if (isFavorite) {
+                                      await FavoritesService.removeFavorite(
+                                          movieId);
+                                      setState(() {
+                                        isFavorite = false;
+                                      });
+                                    } else {
+                                      await FavoritesService.addFavorite(
+                                          movieId);
+                                      setState(() {
+                                        isFavorite = true;
+                                      });
+                                    }
                                   },
                                   icon: Icon(
+                                    isFavorite ?
+                                    Icons.bookmark :
                                     Icons.bookmark_border,
                                     size: 30,
-                                    color: AppColors.whiteColor,
+                                    color: isFavorite ? AppColors.whiteColor :
+                                    AppColors.whiteColor,
                                   )
                               )
                             ],
@@ -227,27 +259,21 @@ class _MoviesDetailsState extends State<MoviesDetails> {
                                       ),
 
                                       Positioned(
-                                        top: 8,
-                                        left: 8,
+                                        top: height * 0.01,
+                                        left: height * 0.01,
                                         child: Container(
                                           padding: EdgeInsets.symmetric(
                                             horizontal: width * 0.01,
-                                            vertical: height * 0.01,
+                                            vertical: height * 0.004,
                                           ),
                                           decoration: BoxDecoration(
-                                            color: Colors.grey,
+                                            color: AppColors.blackColor2,
                                             borderRadius: BorderRadius.circular(
                                                 10),
                                           ),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              const Icon(
-                                                Icons.star,
-                                                color: Color(0xFFF6BD00),
-                                                size: 16,
-                                              ),
-                                              SizedBox(width: width * 0.02),
                                               Text(
                                                 suggestion.rating
                                                     ?.toStringAsFixed(1) ??
@@ -258,6 +284,14 @@ class _MoviesDetailsState extends State<MoviesDetails> {
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
+                                              SizedBox(width: width * 0.02),
+                                              Icon(
+                                                Icons.star,
+                                                color: AppColors.yellowColor,
+                                                size: 16,
+                                              ),
+
+
                                             ],
                                           ),
                                         ),
