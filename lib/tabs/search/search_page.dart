@@ -51,7 +51,6 @@ class _SearchPageState extends State<SearchPage> {
             ),
 
             SizedBox(height: height * 0.02),
-
             Expanded(
               child: queryTerm.isEmpty
                   ? Image.asset(AppImages.empty)
@@ -61,7 +60,7 @@ class _SearchPageState extends State<SearchPage> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                       child: CircularProgressIndicator(
-                        color: AppColors.whiteColor,
+                        color: AppColors.yellowColor,
                       ),
                     );
                   }
@@ -110,6 +109,15 @@ class _SearchPageState extends State<SearchPage> {
                           Positioned(
                             top: height * 0.01,
                             left: width * 0.01,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: width * 0.01,
+                                vertical: height * 0.004,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColors.blackColor2,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             child: Row(
                               children: [
                                 Text(
@@ -129,6 +137,7 @@ class _SearchPageState extends State<SearchPage> {
                               ],
                             ),
                           ),
+                          )
                         ],
                       );
                     },

@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moive_app/l10n/app_localizations.dart';
@@ -13,7 +14,6 @@ import 'package:moive_app/utils/screen_utils.dart';
 import 'package:moive_app/view/widgets/custom_elevated_button.dart';
 import 'package:moive_app/view/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegisterScreen extends StatefulWidget {
   RegisterScreen({super.key});
@@ -39,6 +39,7 @@ class RegisterScreen extends StatefulWidget {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final phoneController = TextEditingController();
+bool isPasswordVisible = false;
 
   int selectedAvatar = 0;
 
@@ -132,20 +133,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     controller: passwordController,
                     borderColor: AppColors.greyColor,
                     preIcon: Icon(Icons.lock,color: AppColors.whiteColor,),
+                    sufIcon: IconButton(onPressed: () {
+                      setState(() {
+                        isPasswordVisible = !isPasswordVisible;
+                      });
+                    }, icon: Icon(isPasswordVisible ? Icons.visibility :
+                    Icons.visibility_off,
+                      color: AppColors.whiteColor,)),
                     filled: true,
                     fillColor: AppColors.greyColor,
                     hintText: AppLocalizations.of(context)!.password,
                     hintStyle: AppStyles.login,
+                    obscureText: !isPasswordVisible,
 
                   ),
                   CustomTextField(
                     controller: confirmPasswordController,
                     borderColor: AppColors.greyColor,
                     preIcon: Icon(Icons.lock,color: AppColors.whiteColor,),
+                    sufIcon: IconButton(onPressed: () {
+                      setState(() {
+                        isPasswordVisible = !isPasswordVisible;
+                      });
+                    }, icon: Icon(isPasswordVisible ? Icons.visibility :
+                    Icons.visibility_off,
+                      color: AppColors.whiteColor,)),
                     filled: true,
                     fillColor: AppColors.greyColor,
                     hintText: AppLocalizations.of(context)!.confirmPassword,
                     hintStyle: AppStyles.login,
+                    obscureText: !isPasswordVisible,
                   ),
                   CustomTextField(
                     controller: phoneController,
