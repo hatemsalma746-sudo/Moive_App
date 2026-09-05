@@ -8,4 +8,5 @@ class AppRoute {
   static String detailsScreen = 'Details View';
   static String updateProfileScreen = 'Update Profile Screen';
   static String moviesDetails = 'Movies Details Screen';
+  static String explorePage = 'Explore Screen';
 }

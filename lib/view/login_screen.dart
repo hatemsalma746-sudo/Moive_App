@@ -27,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   var formKey = GlobalKey<FormState>() ;
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
+  bool isPasswordVisible = false;
   @override
   Widget build(BuildContext context) {
     var width = context.width;
@@ -76,15 +77,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     hintStyle: AppStyles.login,
                   ),
                   CustomTextField(
-
                     borderColor: AppColors.greyColor,
                     preIcon: Icon(Icons.lock,color: AppColors.whiteColor,),
-                    sufIcon: Icon(Icons.remove_red_eye_outlined),
+                    sufIcon: IconButton(onPressed: () {
+                      setState(() {
+                        isPasswordVisible = !isPasswordVisible;
+                      });
+                    },
+                        icon: Icon(isPasswordVisible ? Icons.visibility :
+                        Icons.visibility_off,
+                          color: AppColors.whiteColor,)),
                     filled: true,
                     fillColor: AppColors.greyColor,
                     hintText: AppLocalizations.of(context)!.password,
                     hintStyle: AppStyles.login,
                     controller: passwordController,
+                    obscureText: !isPasswordVisible,
                     validator: (text) {
                       if (text == null || text
                           .trim()

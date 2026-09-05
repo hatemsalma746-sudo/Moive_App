@@ -74,7 +74,7 @@ class CustomTextField extends StatelessWidget {
         prefixIcon: preIcon,
         suffixIcon: sufIcon,
       ),
-      maxLines: maxLines,
+      maxLines: obscureText ? 1 : maxLines,
       obscureText:obscureText,
     );
   }

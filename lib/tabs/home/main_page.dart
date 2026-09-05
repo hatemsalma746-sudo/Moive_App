@@ -11,7 +11,12 @@ import 'package:moive_app/utils/screen_utils.dart';
 
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  final VoidCallback onSeeMore;
+
+  const MainPage({
+    super.key,
+    required this.onSeeMore,
+  });
 
   @override
   State<MainPage> createState() => _HomeScreenState();
@@ -147,7 +152,7 @@ class _HomeScreenState extends State<MainPage> {
                       ),
                       SizedBox(width: width * 0.55),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: widget.onSeeMore,
                         child: Text(
                           AppLocalizations.of(context)!.seeMore,
                           style: TextStyle(
@@ -178,49 +183,66 @@ class _HomeScreenState extends State<MainPage> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadiusGeometry.circular(15),
                           ),
-                          child: Stack(
-                            children: [
-                              Positioned.fill(
-                                child: Image.network(
-                                  actionMovies[index].mediumCoverImage ?? '',
-                                  fit: BoxFit.cover,
-                                  loadingBuilder: (context, child, progress) {
-                                    if (progress == null) return child;
-                                    return Container(
-                                      color: Colors.grey[900],
-                                      child: const Center(
-                                        child: CircularProgressIndicator(),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, AppRoute.moviesDetails,
+                                  arguments: actionMovies[index].id);
+                            },
+                            child: Stack(
+                              children: [
+                                Positioned.fill(
+                                  child: Image.network(
+                                    actionMovies[index].mediumCoverImage ?? '',
+                                    fit: BoxFit.cover,
+                                    loadingBuilder: (context, child, progress) {
+                                      if (progress == null) return child;
+                                      return Container(
+                                        color: Colors.grey[900],
+                                        child: const Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      );
+                                    },
+                                    errorBuilder: (context, error, stack) =>
+                                        Container(color: Colors.grey[800]),
+                                  ),
                                 ),
-                                    );
-                                  },
-                                  errorBuilder: (context, error, stack) =>
-                                      Container(color: Colors.grey[800]),
-                                ),
-                              ),
-                              Positioned(
-                                top: height * 0.01,
-                                left: width * 0.01,
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      actionMovies[index].rating
-                                          ?.toStringAsFixed(1) ?? '0',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                Positioned(
+                                  top: height * 0.01,
+                                  left: width * 0.01,
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: width * 0.01,
+                                      vertical: height * 0.004,
                                     ),
-                                    SizedBox(width: 3),
-                                    Icon(
-                                      Icons.star,
-                                      color: AppColors.yellowColor,
-                                      size: 14,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.blackColor2,
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          actionMovies[index].rating
+                                              ?.toStringAsFixed(1) ?? '0',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SizedBox(width: 3),
+                                        Icon(
+                                          Icons.star,
+                                          color: AppColors.yellowColor,
+                                          size: 14,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         );
                       },

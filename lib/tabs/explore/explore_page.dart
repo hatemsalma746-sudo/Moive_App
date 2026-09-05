@@ -6,9 +6,11 @@ import 'package:moive_app/utils/screen_utils.dart';
 import 'package:moive_app/view/widgets/movie_card.dart';
 
 class ExplorePage extends StatefulWidget {
-  const ExplorePage({super.key});
+  final String? selectedGenre;
 
-  @override
+  const ExplorePage({super.key, this.selectedGenre});
+
+  @@override
   State<ExplorePage> createState() => _ExplorePageState();
 }
 
@@ -30,7 +32,10 @@ class _ExplorePageState extends State<ExplorePage> {
       setState(() {
         movies = result;
         getAllGenres();
-        if (genres.isNotEmpty) {
+        if (widget.selectedGenre != null &&
+            genres.contains(widget.selectedGenre)) {
+          selectedGenre = widget.selectedGenre;
+        } else if (genres.isNotEmpty) {
           selectedGenre = genres.first;
         }
         isLoading = false;

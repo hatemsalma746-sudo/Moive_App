@@ -18,19 +18,27 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   int selectedIndex = 0;
-  List<Widget> tabsList = [
-    MainPage(),
-    SearchPage(),
-    ExplorePage(),
-    ProfilePage(),
-  ];
-  List<Widget>movies = [
-    Image.asset(AppImages.blackPanther,),
-    Image.asset(AppImages.doctorStrange,),
-    Image.asset(AppImages.moive1917,),
-    Image.asset(AppImages.captainAmerica),
-    Image.asset(AppImages.avengers,),
-  ];
+  String? selectedGenre;
+  List<Widget> tabsList = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    tabsList = [
+      MainPage(
+        onSeeMore: () {
+          setState(() {
+            selectedGenre = 'Action';
+            selectedIndex = 2;
+          });
+        },
+      ),
+      SearchPage(),
+      ExplorePage(),
+      ProfilePage(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
